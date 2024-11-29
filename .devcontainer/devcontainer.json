@@ -12,7 +12,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "apt update && apt upgrade -y && pip3 install --user -r requirements.txt"
+	"postCreateCommand": "apt update && apt upgrade -y && apt install tcpdump -y && pip3 install --user -r requirements.txt"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
