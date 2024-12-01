@@ -3,8 +3,8 @@
 # JSONファイルのディレクトリを指定
 KERNEL_DIR="/home/vscode/.local/share/jupyter/runtime"
 
-# kernel-*.json ファイルを探す
-KERNEL_FILE=$(find "$KERNEL_DIR" -name "kernel-*.json" | head -n 1)
+# kernel-*.json ファイルを探し、一番新しいものを選ぶ
+KERNEL_FILE=$(find "$KERNEL_DIR" -name "kernel-*.json" -type f -printf "%T@ %p\n" | sort -n | tail -n 1 | awk '{print $2}')
 
 # ファイルが存在しない場合のエラーハンドリング
 if [ -z "$KERNEL_FILE" ]; then
