@@ -82,7 +82,7 @@ declare -A PID_COMMAND_MAP
 while read -r LINE; do
     PORT=$(echo "$LINE" | awk '{print $4}' | sed 's/.*://')   # ポート番号を抽出
     PID=$(echo "$LINE" | grep -oP 'pid=\K[0-9]+')            # プロセスIDを抽出
-    PROCESS_NAME=$(echo "$LINE" | grep -oP 'users:\(\("([^,]+)' | sed 's/users:(("//') # プロセス名を抽出
+    PROCESS_NAME=$(echo "$LINE" | grep -oP 'users:\(\("([^,]+)' | sed 's/users:(("//;s/"$//')  # プロセス名を抽出
     if [[ -n "$PORT" && -n "$PID" ]]; then
         PORT_PID_MAP["$PID"]+="$PORT "                       # ポートをPIDに関連付け
     fi
@@ -115,15 +115,15 @@ function display_tree() {
     local PORTS=${PORT_PID_MAP["$PID"]}
     for PORT in $PORTS; do
         if [ "$PORT" = "$shell_port" ]; then
-            echo "${CHILD_PREFIX}└─ PORT: $PORT shell_port（開いている）"
+            echo "${CHILD_PREFIX}└─ PORT: $PORT shell_port"
         elif [ "$PORT" = "$iopub_port" ]; then
-            echo "${CHILD_PREFIX}└─ PORT: $PORT iopub_port（開いている）"
+            echo "${CHILD_PREFIX}└─ PORT: $PORT iopub_port"
         elif [ "$PORT" = "$stdin_port" ]; then
-            echo "${CHILD_PREFIX}└─ PORT: $PORT stdin_port（開いている）"
+            echo "${CHILD_PREFIX}└─ PORT: $PORT stdin_port"
         elif [ "$PORT" = "$control_port" ]; then
-            echo "${CHILD_PREFIX}└─ PORT: $PORT control_port（開いている）"
+            echo "${CHILD_PREFIX}└─ PORT: $PORT control_port"
         elif [ "$PORT" = "$hb_port" ]; then
-            echo "${CHILD_PREFIX}└─ PORT: $PORT hb_port（開いている）"
+            echo "${CHILD_PREFIX}└─ PORT: $PORT hb_port"
         else
             echo "${CHILD_PREFIX}└─ PORT: $PORT 他プロセスと通信中"
         fi
@@ -143,3 +143,8 @@ for i in "${!CHILD_PIDS[@]}"; do
     fi
     display_tree "${CHILD_PIDS[$i]}" "" "$IS_LAST"
 done
+
+echo
+echo "==============================="
+# ss -tnp の結果を表示
+ss -tnp
