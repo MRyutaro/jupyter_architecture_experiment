@@ -13,6 +13,7 @@
     var ws;
     ws = new WebSocket("ws://localhost:8000/websocket");
     ws.onmessage = function(ev) {
+      console.log('Message received:', ev.data);
       document.getElementById('variable').innerHTML = ev.data;
     }
   </script>
