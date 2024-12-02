@@ -147,4 +147,5 @@ done
 echo
 echo "==============================="
 # ss -tnp の結果を表示
-ss -tnp
+ss -tnp | head -n 1
+ss -tnp | grep -E "python|jupyter"
