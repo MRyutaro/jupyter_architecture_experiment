@@ -152,4 +152,4 @@ ss -tnp | grep -E "python|jupyter"
 
 echo
 echo "==============================="
-ss
+ss -p
