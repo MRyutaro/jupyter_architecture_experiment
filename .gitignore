@@ -162,7 +162,7 @@ cython_debug/
 #.idea/
 
 # add
-data
+data/*
 !data/.gitkeep
-logs
+logs/*
 !logs/.gitkeep
