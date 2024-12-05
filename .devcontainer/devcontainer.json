@@ -12,7 +12,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sudo apt update && sudo apt upgrade -y && sudo apt install -y tcpdump nodejs npm && pip3 install -r requirements.txt"
+	"postCreateCommand": "sudo apt update && sudo apt upgrade -y && sudo apt install -y tcpdump nodejs npm && pip3 install -r requirements.txt && git pull"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
